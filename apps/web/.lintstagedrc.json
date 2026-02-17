@@ -1,0 +1,7 @@
+{
+  "apps/web/**/*.{js,jsx,ts,tsx,mjs,cjs}": [
+    "pnpm --dir apps/web exec prettier --write",
+    "pnpm --dir apps/web exec eslint --fix --max-warnings=0 --no-warn-ignored"
+  ],
+  "apps/web/**/*.{json,md,css}": ["pnpm --dir apps/web exec prettier --write"]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "todolist-rust-next-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.17.1",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "start": "turbo run start --parallel",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "dev:web": "pnpm --filter web dev",
+    "start:web": "pnpm --filter web start",
+    "build:web": "pnpm --filter web build",
+    "lint:web": "pnpm --filter web lint",
+    "lint-staged:web": "lint-staged --config apps/web/.lintstagedrc.json",
+    "typecheck:web": "pnpm --filter web typecheck",
+    "format:web": "pnpm --filter web format",
+    "format:check:web": "pnpm --filter web format:check",
+    "check:web": "pnpm lint:web && pnpm typecheck:web",
+    "dev:api": "pnpm --filter api dev",
+    "start:api": "pnpm --filter api start",
+    "test:api": "pnpm --filter api test",
+    "verify:api": "pnpm test:api",
+    "verify:web": "pnpm build:web",
+    "verify": "pnpm test && pnpm build",
+    "commitlint": "commitlint",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "turbo": "^2.8.9"
+  }
+}

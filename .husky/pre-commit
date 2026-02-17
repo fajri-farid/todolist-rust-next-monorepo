@@ -1,0 +1,4 @@
+pnpm verify:api
+pnpm lint-staged:web
+pnpm typecheck:web
+
