@@ -1,0 +1,64 @@
+# Quick lifecycle (from repo root):
+# - Start/build:      docker compose up --build -d
+# - Check status:     docker compose ps
+# - Stream logs:      docker compose logs -f
+# - Restart service:  docker compose restart web|api|db
+# - Stop/remove:      docker compose down
+# - Reset all data:   docker compose down -v --remove-orphans
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: todolist-db
+    environment:
+      POSTGRES_DB: todolist
+      POSTGRES_USER: todolist
+      POSTGRES_PASSWORD: todolist
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U todolist -d todolist"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: todolist-api
+    env_file:
+      - apps/api/.env
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: 8080
+      WEB_ORIGIN: http://localhost:3000
+      DATABASE_URL: postgresql://todolist:todolist@db:5432/todolist
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: todolist-web
+    env_file:
+      - apps/web/.env
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

@@ -23,6 +23,12 @@
     "verify:api": "pnpm test:api",
     "verify:web": "pnpm build:web",
     "verify": "pnpm test && pnpm build",
+    "docker:up": "docker compose up --build -d",
+    "docker:restart": "docker compose restart",
+    "docker:down": "docker compose down",
+    "docker:reset": "docker compose down -v --remove-orphans",
+    "docker:logs": "docker compose logs -f",
+    "docker:ps": "docker compose ps",
     "commitlint": "commitlint",
     "prepare": "husky"
   },

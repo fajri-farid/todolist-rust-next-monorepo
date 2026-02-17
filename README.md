@@ -50,6 +50,31 @@ Setup `.env`:
   pnpm build
   pnpm start
   ```
+- Docker (web + api + postgres):
+  ```bash
+  pnpm docker:up
+  ```
+
+## Docker Quick Tutorial
+
+1. Build + start semua service:
+   ```bash
+   pnpm docker:up
+   ```
+2. Cek status:
+   ```bash
+   pnpm docker:ps
+   ```
+3. Buka aplikasi:
+   - `http://localhost:3000`
+4. Kalau sudah selesai:
+   ```bash
+   pnpm docker:down
+   ```
+5. Besok mau lanjut lagi:
+   ```bash
+   pnpm docker:up
+   ```
 
 ## Command Penting
 
@@ -90,6 +115,15 @@ Setup `.env`:
   pnpm start:web
   pnpm start:api
   ```
+- Jalankan stack Docker:
+  ```bash
+  pnpm docker:up
+  pnpm docker:ps
+  pnpm docker:restart
+  pnpm docker:logs
+  pnpm docker:down
+  pnpm docker:reset
+  ```
 
 ## Quality Gate (Husky)
 
@@ -123,4 +157,5 @@ Fix(API): wrong casing
 ```
 
 Dokumentasi setup awal detail ada di `docs/setup-local.md`.
+Dokumentasi Docker detail ada di `docs/docker-guide.md`.
 Panduan kontribusi ada di `CONTRIBUTING.md`.

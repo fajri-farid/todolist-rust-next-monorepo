@@ -73,6 +73,7 @@ Variabel yang dipakai:
   - `API_PORT`
   - `WEB_ORIGIN` (dipakai CORS allow-origin)
   - `RUST_LOG`
+  - `DATABASE_URL`
 
 ## 5) Menjalankan Backend Rust
 
@@ -250,3 +251,4 @@ pnpm verify
 ## 11) Referensi Tambahan
 
 - Guide kontribusi: `CONTRIBUTING.md`
+- Docker guide: `docs/docker-guide.md`
