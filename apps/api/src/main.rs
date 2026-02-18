@@ -8,6 +8,14 @@ use serde::Serialize;
 use tower_http::cors::CorsLayer;
 use tower_http::trace::TraceLayer;
 
+mod app_state;
+mod config;
+mod infrastructure;
+
+use app_state::AppState;
+use config::database::DatabaseSettings;
+use infrastructure::db::connection::connect_database;
+
 #[derive(Debug, Serialize)]
 struct HealthResponse {
     status: &'static str,
@@ -43,10 +51,14 @@ async fn main() -> Result<()> {
     let web_origin =
         std::env::var("WEB_ORIGIN").unwrap_or_else(|_| "http://localhost:3000".to_string());
     let cors_origin = web_origin.parse::<HeaderValue>()?;
+    let db_settings = DatabaseSettings::from_env()?;
+    let db = connect_database(&db_settings).await?;
+    let app_state = AppState::new(db);
 
     let app = Router::new()
         .route("/hello", get(hello))
         .route("/health", get(health))
+        .with_state(app_state)
         .layer(
             CorsLayer::new()
                 .allow_origin(cors_origin)
@@ -59,6 +71,7 @@ async fn main() -> Result<()> {
 
     tracing::info!("API listening on http://{bind_addr}");
     tracing::info!("CORS allowed origin: {web_origin}");
+    tracing::info!("Database connected: {}", db_settings.redacted_database_url());
     axum::serve(listener, app).await?;
 
     Ok(())

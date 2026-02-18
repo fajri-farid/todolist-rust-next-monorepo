@@ -6,6 +6,9 @@
     "dev": "cargo run",
     "build": "cargo build",
     "test": "cargo test",
-    "start": "cargo run --release"
+    "start": "cargo run --release",
+    "db:migrate:up": "cargo run --manifest-path migration/Cargo.toml -- up",
+    "db:migrate:down": "cargo run --manifest-path migration/Cargo.toml -- down -n 1",
+    "db:migrate:fresh": "cargo run --manifest-path migration/Cargo.toml -- fresh"
   }
 }

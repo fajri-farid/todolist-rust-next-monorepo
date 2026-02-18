@@ -34,7 +34,11 @@ Setup `.env`:
    ```bash
    pnpm dev
    ```
-3. Validasi setup awal:
+3. Jalankan migration DB API (SeaORM):
+   ```bash
+   pnpm db:migrate:up:api
+   ```
+4. Validasi setup awal:
    ```bash
    pnpm verify
    ```
@@ -81,6 +85,12 @@ Setup `.env`:
 - Test backend:
   ```bash
   pnpm test:api
+  ```
+- Migration API:
+  ```bash
+  pnpm db:migrate:up:api
+  pnpm db:migrate:down:api
+  pnpm db:migrate:fresh:api
   ```
 - Lint frontend:
   ```bash

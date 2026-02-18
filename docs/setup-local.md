@@ -74,8 +74,28 @@ Variabel yang dipakai:
   - `WEB_ORIGIN` (dipakai CORS allow-origin)
   - `RUST_LOG`
   - `DATABASE_URL`
+  - `DATABASE_SSL_MODE`
+  - `DATABASE_MAX_CONNECTIONS`
+  - `DATABASE_MIN_CONNECTIONS`
+  - `DATABASE_CONNECT_TIMEOUT_SECS`
+  - `DATABASE_IDLE_TIMEOUT_SECS`
+  - `DATABASE_MAX_LIFETIME_SECS`
 
-## 5) Menjalankan Backend Rust
+## 5) Menjalankan Database Migration (SeaORM)
+
+Pastikan PostgreSQL sudah aktif (local atau Docker), lalu jalankan:
+
+```bash
+pnpm db:migrate:up:api
+```
+
+Rollback migration terakhir:
+
+```bash
+pnpm db:migrate:down:api
+```
+
+## 6) Menjalankan Backend Rust
 
 Dari root repo:
 
@@ -101,7 +121,7 @@ Respons yang diharapkan:
 {"status":"ok"}
 ```
 
-## 6) Menjalankan Frontend Next.js
+## 7) Menjalankan Frontend Next.js
 
 Dari root repo:
 
@@ -118,7 +138,7 @@ Menjalankan web + api sekaligus dengan Turbo:
 pnpm dev
 ```
 
-## 7) Menjalankan Mode Production
+## 8) Menjalankan Mode Production
 
 Build semua app dulu:
 
@@ -139,7 +159,7 @@ pnpm start:web
 pnpm start:api
 ```
 
-## 8) Command Validasi Awal
+## 9) Command Validasi Awal
 
 Unit test backend:
 
@@ -195,7 +215,7 @@ Menjalankan semua build workspace via Turbo:
 pnpm build
 ```
 
-## 9) Git Hook (Husky)
+## 10) Git Hook (Husky)
 
 Husky sudah disetup di project ini.
 
@@ -240,15 +260,16 @@ Aturannya ada di:
 pnpm verify
 ```
 
-## 10) Troubleshooting Cepat
+## 11) Troubleshooting Cepat
 
 - Jika `pnpm install` gagal karena network, pastikan akses ke `registry.npmjs.org` terbuka.
 - Jika `cargo run` gagal download crate, cek koneksi ke `crates.io`.
+- Jika `pnpm db:migrate:up:api` gagal koneksi DB, cek `DATABASE_URL`, `DATABASE_SSL_MODE`, dan status service postgres.
 - Jika port bentrok:
   - Web: ubah port di script `apps/web/package.json`
   - API: ubah port di `apps/api/src/main.rs`
 
-## 11) Referensi Tambahan
+## 12) Referensi Tambahan
 
 - Guide kontribusi: `CONTRIBUTING.md`
 - Docker guide: `docs/docker-guide.md`
