@@ -2,6 +2,7 @@ pub use sea_orm_migration::prelude::*;
 
 mod m20260217_000001_init_schema;
 
+/// Registri urutan migrasi schema database.
 pub struct Migrator;
 
 #[async_trait::async_trait]

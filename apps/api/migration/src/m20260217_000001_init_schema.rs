@@ -1,10 +1,16 @@
 use sea_orm_migration::prelude::*;
 
+/// Migrasi awal untuk membuat tabel utama autentikasi dan todo.
 #[derive(DeriveMigrationName)]
 pub struct Migration;
 
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
+    /// Membuat:
+    /// - extension `pgcrypto` untuk UUID,
+    /// - tabel `users`, `auth_sessions`, `todos`,
+    /// - index penting,
+    /// - constraint validasi dasar.
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
             .get_connection()
@@ -184,6 +190,7 @@ impl MigrationTrait for Migration {
         Ok(())
     }
 
+    /// Rollback migrasi awal dengan menghapus tabel utama.
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
             .drop_table(Table::drop().table(Todos::Table).to_owned())

@@ -5,6 +5,7 @@ use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 
 use crate::config::database::DatabaseSettings;
 
+/// Membuka koneksi SeaORM dengan konfigurasi pool dari `DatabaseSettings`.
 pub async fn connect_database(settings: &DatabaseSettings) -> Result<DatabaseConnection> {
     let mut options = ConnectOptions::new(settings.database_url.clone());
     options

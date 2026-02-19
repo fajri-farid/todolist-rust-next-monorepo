@@ -1,13 +1,20 @@
 use sea_orm::DatabaseConnection;
+use uuid::Uuid;
 
+/// State bersama yang di-inject ke seluruh handler Axum.
 #[derive(Clone)]
 pub struct AppState {
-    #[allow(dead_code)]
     pub db: DatabaseConnection,
+    /// User default untuk mode no-auth.
+    pub default_user_id: Uuid,
 }
 
 impl AppState {
-    pub fn new(db: DatabaseConnection) -> Self {
-        Self { db }
+    /// Membentuk state aplikasi setelah dependency startup siap.
+    pub fn new(db: DatabaseConnection, default_user_id: Uuid) -> Self {
+        Self {
+            db,
+            default_user_id,
+        }
     }
 }

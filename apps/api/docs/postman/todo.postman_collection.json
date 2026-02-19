@@ -1,0 +1,133 @@
+{
+  "info": {
+    "_postman_id": "a3e53dc5-bb4c-469a-b616-76f9f7a44a67",
+    "name": "Todo API (No Auth)",
+    "description": "Collection untuk menguji endpoint CRUD Todo pada fase tanpa auth. Semua request menggunakan base_url dari environment. Request Create otomatis menyimpan id ke variabel todo_id untuk dipakai di request berikutnya.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Todo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Belajar SeaORM\",\n  \"desc\": \"CRUD todo tanpa auth\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/todos",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "todos"
+          ]
+        },
+        "description": "Membuat todo baru. Wajib kirim title non-empty. Jika sukses akan mengembalikan status 201 dan body data todo."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 201', function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "const json = pm.response.json();",
+              "if (json && json.data && json.data.id) {",
+              "  pm.environment.set('todo_id', json.data.id);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "List Todos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/todos",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "todos"
+          ]
+        },
+        "description": "Mengambil daftar todo untuk default user pada fase tanpa auth."
+      }
+    },
+    {
+      "name": "Get Todo Detail",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/todos/{{todo_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "todos",
+            "{{todo_id}}"
+          ]
+        },
+        "description": "Mengambil detail satu todo berdasarkan todo_id dari environment."
+      }
+    },
+    {
+      "name": "Update Todo",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Belajar SeaORM - updated\",\n  \"iscompleted\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/todos/{{todo_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "todos",
+            "{{todo_id}}"
+          ]
+        },
+        "description": "Update partial todo. Kirim field yang ingin diubah saja (title/desc/iscompleted)."
+      }
+    },
+    {
+      "name": "Delete Todo",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/todos/{{todo_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "todos",
+            "{{todo_id}}"
+          ]
+        },
+        "description": "Menghapus todo berdasarkan todo_id. Jika sukses return 204 No Content."
+      }
+    }
+  ]
+}

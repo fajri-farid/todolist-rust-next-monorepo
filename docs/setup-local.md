@@ -50,8 +50,8 @@ Catatan:
 
 - Frontend: `http://localhost:3000`
 - API: `http://localhost:8080`
-- Health check API: `GET /health`
-- Demo endpoint API: `GET /hello`
+- Health check API: `GET /api/health`
+- Demo endpoint API: `GET /api/hello`
 
 Setup file `.env`:
 
@@ -67,7 +67,7 @@ Setup file `.env`:
 
 Variabel yang dipakai:
 - Web (`apps/web/.env`):
-  - `NEXT_PUBLIC_API_BASE_URL`
+  - `NEXT_PUBLIC_API_BASE_URL` (contoh: `http://localhost:8080/api`)
 - API (`apps/api/.env`):
   - `API_HOST`
   - `API_PORT`
@@ -80,6 +80,7 @@ Variabel yang dipakai:
   - `DATABASE_CONNECT_TIMEOUT_SECS`
   - `DATABASE_IDLE_TIMEOUT_SECS`
   - `DATABASE_MAX_LIFETIME_SECS`
+  - `DEFAULT_USER_ID` (sementara dipakai mode tanpa auth)
 
 ## 5) Menjalankan Database Migration (SeaORM)
 
@@ -112,7 +113,7 @@ cargo run --manifest-path apps/api/Cargo.toml
 Verifikasi backend:
 
 ```bash
-curl http://localhost:8080/health
+curl http://localhost:8080/api/health
 ```
 
 Respons yang diharapkan:

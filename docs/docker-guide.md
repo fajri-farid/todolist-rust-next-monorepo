@@ -137,7 +137,7 @@ Lalu beberapa env di-override oleh `docker-compose.yml` untuk konteks container:
   - Di container, host DB harus `db` (nama service Compose), bukan `localhost`.
 - Jika `web` tidak bisa call API, pastikan:
   - `api` status `Up`
-  - env `NEXT_PUBLIC_API_BASE_URL` benar (`http://localhost:8080` untuk akses dari browser host)
+  - env `NEXT_PUBLIC_API_BASE_URL` benar (`http://localhost:8080/api` untuk akses dari browser host)
 - Jika port bentrok (`3000`, `8080`, `5432`), hentikan proses lokal lain dulu atau ubah mapping port.
 - Jika build aneh karena cache, jalankan:
   ```bash
@@ -161,5 +161,5 @@ Lalu beberapa env di-override oleh `docker-compose.yml` untuk konteks container:
 
 ## 10) Catatan Penting
 
-- Saat dijalankan di browser host, frontend tetap akses API lewat `http://localhost:8080`.
+- Saat dijalankan di browser host, frontend mengakses API lewat base `http://localhost:8080/api`.
 - Service database bisa diakses dari host lewat `localhost:5432`.

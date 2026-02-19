@@ -15,8 +15,8 @@ Monorepo awal untuk:
 
 - Web default URL: `http://localhost:3000`
 - API default URL: `http://localhost:8080`
-- Endpoint health: `GET /health`
-- Endpoint demo: `GET /hello`
+- Endpoint health: `GET /api/health`
+- Endpoint demo: `GET /api/hello`
 
 Setup `.env`:
 

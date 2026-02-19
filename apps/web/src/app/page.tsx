@@ -9,7 +9,7 @@ const helloResponseSchema = z.object({
 
 type HelloResponse = z.infer<typeof helloResponseSchema>;
 const apiBaseUrl =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8080';
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8080/api';
 
 async function fetchHelloMessage(): Promise<HelloResponse> {
   const response = await fetch(`${apiBaseUrl}/hello`);
